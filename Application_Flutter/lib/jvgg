@@ -1,0 +1,749 @@
+[General]
+cmdenv-config-name = perftest
+cmdenv-express-mode = true
+record-eventlog = true
+#debug-on-errors=true
+user-interface = Tkenv
+network = org.mixim.examples.WSN.WSN
+#sim-time-limit = 120s
+sim-time-limit = 1800s
+repeat = 8
+*.numHosts = 3
+WSN.node[*].nicType='PhyMacNic'
+
+##########################################################
+# Simulation parameters #
+##########################################################
+tkenv-default-config =
+*.**.coreDebug = true
+*.playgroundSizeX = 400m
+*.playgroundSizeY = 400m
+*.playgroundSizeZ = 300m
+#*.numHosts = 3
+
+##########################################################
+# WorldUtility parameters #
+##########################################################
+*.world.useTorus = false
+##########################################################
+# channel parameters #
+##########################################################
+
+*.connectionManager.sendDirect = true
+*.connectionManager.pMax = 100mW
+*.connectionManager.sat = -90dBm
+*.connectionManager.alpha = 3
+*.connectionManager.carrierFrequency = 2.412e+9Hz
+**.radioRange=70m
+
+##########################################################
+# Host specific parameters #
+##########################################################
+*.node[*].nic.connectionManagerName = 'connectionManager'
+################ PhyLayer parameters #####################
+*.node[*].nic.phy.usePropagationDelay = false
+*.node[*].nic.phy.thermalNoise = -100dBm
+*.node[*].nic.phy.useThermalNoise = true
+*.node[*].nic.phy.analogueModels = xmldoc('config.xml')
+*.node[*].nic.phy.decider = xmldoc('config.xml')
+
+*.node[*].nic.phy.timeRXToTX = 0.00021s
+*.node[*].nic.phy.timeRXToSleep = 0.000031s
+
+*.node[*].nic.phy.timeTXToRX = 0.00012s
+*.node[*].nic.phy.timeTXToSleep = 0.000032s
+
+*.node[*].nic.phy.timeSleepToRX = 0.000102s
+*.node[*].nic.phy.timeSleepToTX = 0.000203s
+
+*.node[*].nic.phy.sensitivity = -87dBm
+*.node[*].nic.phy.maxTXPower = 100.0mW
+**.nic.sleepCurrent = 0.02mA
+
+**.nic.rxCurrent = 16.4mA
+**.nic.decodingCurrentDelta = 0mA
+**.nic.txCurrent = 17mA
+**.nic.setupRxCurrent = 8.2mA
+**.nic.setupTxCurrent = 8.2mA
+**.nic.rxTxCurrent = 17mA
+**.nic.txRxCurrent = 17mA
+################ MAC layer parameters ####################
+WSN.node[*].nic.mac.rxSetupTime = 0s
+WSN.node[*].nic.mac.useMACAcks = false
+WSN.node[*].nic.mac.queueLength = 5
+WSN.node[*].nic.mac.headerLength = 24bit
+#WSN.node[*].nic.mac.slotDuration = 0.04s
+#WSN.node[*].nic.mac.difs = 0.0005s
+#WSN.node[*].nic.mac.maxTxAttempts = 14
+#WSN.node[*].nic.mac.defaultChannel = 0
+WSN.node[*].nic.mac.bitrate = 15360bps
+WSN.node[*].nic.mac.contentionWindow = 20
+WSN.node[*].nic.mac.txPower = 100mW # [mW]
+WSN.node[*].nic.mac.aTurnaroundTime = 0.000215s
+################ NETW layer parameters ####################
+#**.netwl.coreDebug = false
+**.netwl.stats = true
+**.netwl.headerLength = 32bit
+
+################ Application #####################
+
+WSN.node[*].appl.trafficType = 'exponential'
+# trafficParam= 0.1 (10 paquets /sec), trafficParam=0.5 (2paquets/sec)
+
+WSN.node[*].appl.trafficParam = 0.1s
+WSN.node[0].appl.nbPackets=0
+WSN.node[*].appl.nbPackets= 10
+WSN.node[*].appl.destAddr = 0
+################ Mobility parameters #####################
+**.node[*].mobilityType = 'StationaryMobility'
+**.node[*].mobility.initFromDisplayString = false
+
+*.node[0].mobility.initialX = 150m
+*.node[0].mobility.initialY = 200m
+*.node[0].mobility.initialZ = 100m
+
+*.node[1].mobility.initialX = 250m
+*.node[1].mobility.initialY = 100m
+*.node[1].mobility.initialZ = 100m
+
+*.node[2].mobility.initialX = 250m
+*.node[2].mobility.initialY = 200m
+*.node[2].mobility.initialZ = 100m
+
+*.node[3].mobility.initialX = 50m
+*.node[3].mobility.initialY = 100m
+*.node[3].mobility.initialZ = 100m
+
+*.node[4].mobility.initialX = 150m
+*.node[4].mobility.initialY = 380m
+*.node[4].mobility.initialZ = 100m
+
+*.node[5].mobility.initialX = 50m
+*.node[5].mobility.initialY = 400m
+
+*.node[5].mobility.initialZ = 100m
+
+*.node[*].mobility.initialX = 0m
+*.node[*].mobility.initialY = 0m
+*.node[*].mobility.initialZ = 0m
+
+################ Battery #####################
+WSN.node[*].battery.debug = false
+#CsmaWuR.sink.battery.debug = false
+**.battery.nominal = 99999mAh
+**.battery.capacity = 99999mAh
+**.battery.voltage = 3.3V
+**.battery.resolution = 0.1s
+**.battery.publishDelta = 1
+**.battery.publishTime = 0
+**.battery.numDevices = 1
+
+**.batteryStats.debug = true
+**.batteryStats.detail = true
+**.batteryStats.timeSeries = false
+
+#*.node[0].nic.id = 0
+#*.node[1].nic.id = 1
+#*.node[2].nic.id = 2
+#*.node[3].nic.id = 3
+#*.node[4].nic.id = 4
+#*.node[5].nic.id = 5
+#*.node[*].nic.id = 0
+
+[Config StarTopology6]
+description='Wireless sensor network (6 nodes) with traffic towards one sink (host 0)'
+**.numHosts =7
+
+WSN.node[0].mobility.initialX = 200m
+WSN.node[0].mobility.initialY = 200m
+WSN.node[0].mobility.initialZ = 0m
+
+WSN.node[1].mobility.initialX = 220.0000 m
+WSN.node[1].mobility.initialY = 200.0000m
+WSN.node[1].mobility.initialZ = 0m
+
+WSN.node[2].mobility.initialX = 210.0000 m
+WSN.node[2].mobility.initialY = 217.3205m
+WSN.node[2].mobility.initialZ = 0m
+
+WSN.node[3].mobility.initialX = 190.0000 m
+WSN.node[3].mobility.initialY = 217.3205m
+WSN.node[3].mobility.initialZ = 0 m
+
+WSN.node[4].mobility.initialX = 180.0000 m
+WSN.node[4].mobility.initialY = 200.0000m
+WSN.node[4].mobility.initialZ = 0m
+
+WSN.node[5].mobility.initialX = 190.0000 m
+WSN.node[5].mobility.initialY = 182.6795m
+WSN.node[5].mobility.initialZ = 0m
+
+WSN.node[6].mobility.initialX = 210.0000 m
+WSN.node[6].mobility.initialY = 182.6795m
+WSN.node[6].mobility.initialZ = 0m
+
+[Config StarTopology5]
+description='Wireless sensor network (5 nodes) with traffic towards one sink (host 0)'
+**.numHosts =6
+
+WSN.node[0].mobility.initialX = 200m
+WSN.node[0].mobility.initialY = 200m
+WSN.node[0].mobility.initialZ = 0m
+
+WSN.node[1].mobility.initialX = 206.1803m
+WSN.node[1].mobility.initialY = 219.0211m
+WSN.node[1].mobility.initialZ = 0m
+
+WSN.node[2].mobility.initialX = 183.8197m
+WSN.node[2].mobility.initialY = 211.7557m
+WSN.node[2].mobility.initialZ = 0m
+
+WSN.node[3].mobility.initialX = 183.8197m
+WSN.node[3].mobility.initialY = 188.2443m
+WSN.node[3].mobility.initialZ = 0 m
+
+WSN.node[4].mobility.initialX = 206.1803m
+WSN.node[4].mobility.initialY = 180.9789m
+WSN.node[4].mobility.initialZ = 0m
+
+WSN.node[5].mobility.initialX = 220.0000m
+
+WSN.node[5].mobility.initialY = 200.0000m
+WSN.node[5].mobility.initialZ = 0m
+
+[Config StarTopology8]
+description='Wireless sensor network (8 nodes) with traffic towards one sink (host 0)'
+**.numHosts =9
+
+WSN.node[0].mobility.initialX = 200m
+WSN.node[0].mobility.initialY = 200m
+WSN.node[0].mobility.initialZ = 0m
+
+WSN.node[1].mobility.initialX = 220.0000 m
+WSN.node[1].mobility.initialY = 200.0000m
+WSN.node[1].mobility.initialZ = 0m
+
+WSN.node[2].mobility.initialX = 214.1421m
+WSN.node[2].mobility.initialY = 214.1421m
+WSN.node[2].mobility.initialZ = 0m
+
+WSN.node[3].mobility.initialX = 200.0000m
+WSN.node[3].mobility.initialY = 220.0000m
+WSN.node[3].mobility.initialZ = 0m
+
+WSN.node[4].mobility.initialX = 185.8579m
+WSN.node[4].mobility.initialY = 214.1421m
+WSN.node[4].mobility.initialZ = 0m
+
+WSN.node[5].mobility.initialX = 180.0000m
+WSN.node[5].mobility.initialY = 200.0000m
+
+WSN.node[5].mobility.initialZ = 0m
+
+WSN.node[6].mobility.initialX =185.8579m
+WSN.node[6].mobility.initialY = 185.8579m
+WSN.node[6].mobility.initialZ = 0m
+
+WSN.node[7].mobility.initialX = 200.0000 m
+WSN.node[7].mobility.initialY = 180.0000m
+WSN.node[7].mobility.initialZ = 0m
+
+WSN.node[8].mobility.initialX = 214.1421m
+WSN.node[8].mobility.initialY = 185.8579m
+WSN.node[8].mobility.initialZ = 0m
+
+[Config StarTopology10-1]
+description='Wireless sensor network (10 nodes) with traffic towards one sink (host 0)'
+**.numHosts =11
+
+WSN.node[0].mobility.initialX = 200m
+WSN.node[0].mobility.initialY = 200m
+WSN.node[0].mobility.initialZ = 0m
+
+WSN.node[1].mobility.initialX = 220.0000 m
+WSN.node[1].mobility.initialY = 200.0000m
+WSN.node[1].mobility.initialZ = 0m
+
+WSN.node[2].mobility.initialX = 216.1803m
+WSN.node[2].mobility.initialY = 211.7557m
+WSN.node[2].mobility.initialZ = 0m
+
+WSN.node[3].mobility.initialX = 206.1803m
+WSN.node[3].mobility.initialY = 219.0211m
+WSN.node[3].mobility.initialZ = 0m
+
+WSN.node[4].mobility.initialX = 193.8197m
+WSN.node[4].mobility.initialY = 219.0211m
+WSN.node[4].mobility.initialZ = 0m
+
+WSN.node[5].mobility.initialX = 183.8197m
+WSN.node[5].mobility.initialY = 211.7557m
+WSN.node[5].mobility.initialZ = 0m
+
+WSN.node[6].mobility.initialX =180.0000m
+WSN.node[6].mobility.initialY = 200.0000m
+WSN.node[6].mobility.initialZ = 0m
+
+WSN.node[7].mobility.initialX = 183.8197 m
+WSN.node[7].mobility.initialY = 188.2443m
+WSN.node[7].mobility.initialZ = 0m
+
+WSN.node[8].mobility.initialX = 193.8197m
+WSN.node[8].mobility.initialY = 180.9789m
+WSN.node[8].mobility.initialZ = 0m
+
+WSN.node[9].mobility.initialX = 206.1803m
+WSN.node[9].mobility.initialY = 180.9789m
+WSN.node[9].mobility.initialZ = 0m
+
+WSN.node[10].mobility.initialX = 216.1803m
+
+WSN.node[10].mobility.initialY = 188.2443m
+WSN.node[10].mobility.initialZ = 0m
+
+[Config StarTopology12]
+description='Wireless sensor network (12 nodes) with traffic towards one sink (host 0)(rayon
+20)'
+**.numHosts =13
+
+WSN.node[0].mobility.initialX = 200m
+WSN.node[0].mobility.initialY = 200m
+WSN.node[0].mobility.initialZ = 0m
+
+WSN.node[1].mobility.initialX = 220.0000 m
+WSN.node[1].mobility.initialY = 200.0000m
+WSN.node[1].mobility.initialZ = 0m
+
+WSN.node[2].mobility.initialX = 217.3205m
+WSN.node[2].mobility.initialY = 210.0000m
+WSN.node[2].mobility.initialZ = 0m
+
+WSN.node[3].mobility.initialX = 210.0000 m
+WSN.node[3].mobility.initialY = 217.3205m
+WSN.node[3].mobility.initialZ = 0 m
+
+WSN.node[4].mobility.initialX = 200.0000m
+WSN.node[4].mobility.initialY = 220.0000m
+WSN.node[4].mobility.initialZ = 0m
+
+WSN.node[5].mobility.initialX = 190.0000m
+WSN.node[5].mobility.initialY = 217.3205 m
+WSN.node[5].mobility.initialZ = 0m
+
+WSN.node[6].mobility.initialX = 182.6795 m
+WSN.node[6].mobility.initialY = 210.0000m
+WSN.node[6].mobility.initialZ = 0m
+
+WSN.node[7].mobility.initialX = 180.0000 m
+WSN.node[7].mobility.initialY = 200.0000m
+WSN.node[7].mobility.initialZ = 1.2566m
+
+WSN.node[8].mobility.initialX = 182.6795 m
+WSN.node[8].mobility.initialY = 190.0000m
+WSN.node[8].mobility.initialZ = 1.4661m
+
+WSN.node[9].mobility.initialX = 190.0000 m
+WSN.node[9].mobility.initialY = 182.6795m
+WSN.node[9].mobility.initialZ = 1.6755m
+
+WSN.node[10].mobility.initialX = 200.0000 m
+WSN.node[10].mobility.initialY = 180.0000m
+WSN.node[10].mobility.initialZ = 1.8850m
+
+WSN.node[11].mobility.initialX = 210.0000m
+WSN.node[11].mobility.initialY = 182.6795m
+WSN.node[11].mobility.initialZ = 0m
+
+WSN.node[12].mobility.initialX = 217.3205m
+WSN.node[12].mobility.initialY = 190.0000m
+
+WSN.node[12].mobility.initialZ = 0m
+
+[Config StarTopology15]
+description='Wireless sensor network (15 nodes) with traffic towards one sink (host 0)rayon 20'
+**.numHosts =16
+
+WSN.node[0].mobility.initialX = 200m
+WSN.node[0].mobility.initialY = 200m
+WSN.node[0].mobility.initialZ = 0m
+
+WSN.node[1].mobility.initialX = 218.2709 m
+WSN.node[1].mobility.initialY = 208.1347m
+WSN.node[1].mobility.initialZ = 0m
+
+WSN.node[2].mobility.initialX = 213.3826 m
+WSN.node[2].mobility.initialY = 214.8629m
+WSN.node[2].mobility.initialZ = 0m
+
+WSN.node[3].mobility.initialX = 206.1803 m
+WSN.node[3].mobility.initialY = 219.0211m
+WSN.node[3].mobility.initialZ = 0m
+
+WSN.node[4].mobility.initialX = 197.9094 m
+WSN.node[4].mobility.initialY = 219.8904m
+WSN.node[4].mobility.initialZ = 0m
+
+WSN.node[5].mobility.initialX = 190.0000 m
+WSN.node[5].mobility.initialY = 217.3205m
+WSN.node[5].mobility.initialZ = 0m
+
+WSN.node[6].mobility.initialX = 183.8197 m
+WSN.node[6].mobility.initialY = 211.7557m
+WSN.node[6].mobility.initialZ = 0m
+
+WSN.node[7].mobility.initialX = 180.4370m
+WSN.node[7].mobility.initialY = 204.1582m
+WSN.node[7].mobility.initialZ = 0m
+
+WSN.node[8].mobility.initialX = 180.4370 m
+WSN.node[8].mobility.initialY = 195.8418m
+WSN.node[8].mobility.initialZ = 0m
+
+WSN.node[9].mobility.initialX = 183.8197m
+WSN.node[9].mobility.initialY = 188.2443m
+WSN.node[9].mobility.initialZ = 0m
+
+WSN.node[10].mobility.initialX = 190.0000 m
+WSN.node[10].mobility.initialY = 182.6795 m
+WSN.node[10].mobility.initialZ = 0m
+
+WSN.node[11].mobility.initialX = 197.9094m
+WSN.node[11].mobility.initialY = 180.1096m
+WSN.node[11].mobility.initialZ = 0m
+
+WSN.node[12].mobility.initialX = 206.1803 m
+WSN.node[12].mobility.initialY = 180.9789m
+WSN.node[12].mobility.initialZ = 0m
+
+WSN.node[13].mobility.initialX = 213.3826m
+
+WSN.node[13].mobility.initialY = 185.1371m
+WSN.node[13].mobility.initialZ = 0m
+
+WSN.node[14].mobility.initialX = 218.2709m
+WSN.node[14].mobility.initialY = 191.8653m
+WSN.node[14].mobility.initialZ = 0m
+
+WSN.node[15].mobility.initialX = 220.0000m
+WSN.node[15].mobility.initialY = 200.0000m
+WSN.node[15].mobility.initialZ = 0m
+
+[Config StarTopology18]
+description='Wireless sensor network (18 nodes) with traffic towards one sink (host 0)rayon 20'
+**.numHosts =19
+
+WSN.node[0].mobility.initialX = 200m
+WSN.node[0].mobility.initialY = 200m
+WSN.node[0].mobility.initialZ = 0m
+
+WSN.node[1].mobility.initialX = 220.0000 m
+WSN.node[1].mobility.initialY = 200.0000m
+WSN.node[1].mobility.initialZ = 0m
+
+WSN.node[2].mobility.initialX = 218.7939m
+WSN.node[2].mobility.initialY = 206.8404m
+WSN.node[2].mobility.initialZ = 0m
+
+WSN.node[3].mobility.initialX = 215.3209 m
+WSN.node[3].mobility.initialY = 212.8558m
+WSN.node[3].mobility.initialZ = 0m
+
+WSN.node[4].mobility.initialX = 210.0000 m
+WSN.node[4].mobility.initialY = 217.3205m
+WSN.node[4].mobility.initialZ = 0m
+
+WSN.node[5].mobility.initialX = 203.4730 m
+WSN.node[5].mobility.initialY = 219.6962m
+WSN.node[5].mobility.initialZ = 0m
+
+WSN.node[6].mobility.initialX = 196.5270 m
+WSN.node[6].mobility.initialY = 219.6962m
+WSN.node[6].mobility.initialZ = 0m
+
+WSN.node[7].mobility.initialX = 190.0000 m
+WSN.node[7].mobility.initialY = 217.3205m
+WSN.node[7].mobility.initialZ = 0m
+
+WSN.node[8].mobility.initialX = 184.6791 m
+WSN.node[8].mobility.initialY = 212.8558m
+WSN.node[8].mobility.initialZ = 0m
+
+WSN.node[9].mobility.initialX = 181.2061m
+WSN.node[9].mobility.initialY = 206.8404m
+WSN.node[9].mobility.initialZ = 0m
+
+WSN.node[10].mobility.initialX = 180.0000 m
+
+WSN.node[10].mobility.initialY = 200.0000m
+WSN.node[10].mobility.initialZ = 0m
+
+WSN.node[11].mobility.initialX = 181.2061m
+WSN.node[11].mobility.initialY = 193.1596m
+WSN.node[11].mobility.initialZ = 0m
+
+WSN.node[12].mobility.initialX = 184.6791m
+WSN.node[12].mobility.initialY = 187.1442m
+WSN.node[12].mobility.initialZ = 0m
+
+WSN.node[13].mobility.initialX = 190.0000m
+WSN.node[13].mobility.initialY = 182.6795m
+WSN.node[13].mobility.initialZ = 0m
+
+WSN.node[14].mobility.initialX = 196.5270m
+WSN.node[14].mobility.initialY = 180.3038m
+WSN.node[14].mobility.initialZ = 0m
+
+WSN.node[15].mobility.initialX = 203.4730 m
+WSN.node[15].mobility.initialY = 180.3038m
+WSN.node[15].mobility.initialZ = 0m
+
+WSN.node[16].mobility.initialX = 210.0000m
+WSN.node[16].mobility.initialY = 182.6795m
+WSN.node[16].mobility.initialZ = 0m
+
+WSN.node[17].mobility.initialX = 215.3209m
+WSN.node[17].mobility.initialY = 187.1442m
+WSN.node[17].mobility.initialZ = 0m
+
+WSN.node[18].mobility.initialX = 218.7939 m
+WSN.node[18].mobility.initialY = 193.1596m
+WSN.node[18].mobility.initialZ = 0m
+
+[Config StarTopology24-20]
+description='Wireless sensor network (24 nodes) with traffic towards one sink (host 0) rayon 20'
+**.numHosts =25
+
+#DMAWuR.playgroundSizeX = 1000m
+#DMAWuR.playgroundSizeY = 1000m
+#DMAWuR.playgroundSizeZ = 200m
+
+WSN.node[0].mobility.initialX = 200m
+WSN.node[0].mobility.initialY = 200m
+WSN.node[0].mobility.initialZ = 0m
+
+WSN.node[1].mobility.initialX = 219.3185m
+WSN.node[1].mobility.initialY = 205.1764m
+WSN.node[1].mobility.initialZ = 0m
+
+WSN.node[2].mobility.initialX = 217.3205m
+WSN.node[2].mobility.initialY = 210.0000m
+WSN.node[2].mobility.initialZ = 0m
+
+WSN.node[3].mobility.initialX = 214.1421m
+WSN.node[3].mobility.initialY = 214.1421m
+WSN.node[3].mobility.initialZ = 0 m
+
+WSN.node[4].mobility.initialX = 210.0000m
+WSN.node[4].mobility.initialY = 217.3205m
+WSN.node[4].mobility.initialZ = 0m
+
+WSN.node[5].mobility.initialX = 205.1764m
+WSN.node[5].mobility.initialY = 219.3185m
+WSN.node[5].mobility.initialZ = 0m
+
+WSN.node[6].mobility.initialX = 200.0000m
+WSN.node[6].mobility.initialY = 220.0000m
+WSN.node[6].mobility.initialZ = 0m
+
+WSN.node[7].mobility.initialX = 194.8236m
+WSN.node[7].mobility.initialY = 219.3185m
+WSN.node[7].mobility.initialZ = 0m
+
+WSN.node[8].mobility.initialX = 190.0000m
+WSN.node[8].mobility.initialY = 217.3205m
+WSN.node[8].mobility.initialZ = 0m
+
+WSN.node[9].mobility.initialX = 185.8579m
+WSN.node[9].mobility.initialY = 214.1421m
+WSN.node[9].mobility.initialZ = 0m
+
+WSN.node[10].mobility.initialX = 182.6795m
+WSN.node[10].mobility.initialY = 210.0000m
+WSN.node[10].mobility.initialZ = 0m
+
+WSN.node[11].mobility.initialX = 180.6815m
+
+WSN.node[11].mobility.initialY = 205.1764m
+WSN.node[11].mobility.initialZ = 0m
+
+WSN.node[12].mobility.initialX = 180.0000m
+WSN.node[12].mobility.initialY = 200.0000m
+WSN.node[12].mobility.initialZ = 0m
+
+WSN.node[13].mobility.initialX = 180.6815m
+WSN.node[13].mobility.initialY = 194.8236m
+WSN.node[13].mobility.initialZ = 0m
+
+WSN.node[14].mobility.initialX = 182.6795m
+WSN.node[14].mobility.initialY = 190.0000m
+WSN.node[14].mobility.initialZ = 0m
+
+WSN.node[15].mobility.initialX = 185.8579 m
+WSN.node[15].mobility.initialY = 185.8579m
+WSN.node[15].mobility.initialZ = 0m
+
+WSN.node[16].mobility.initialX = 190.0000m
+WSN.node[16].mobility.initialY = 182.6795m
+WSN.node[16].mobility.initialZ = 0m
+
+WSN.node[17].mobility.initialX = 194.8236m
+WSN.node[17].mobility.initialY = 180.6815m
+WSN.node[17].mobility.initialZ = 0m
+
+WSN.node[18].mobility.initialX = 200.0000m
+WSN.node[18].mobility.initialY = 180.0000m
+WSN.node[18].mobility.initialZ = 0m
+
+WSN.node[19].mobility.initialX = 205.1764m
+WSN.node[19].mobility.initialY = 180.6815m
+WSN.node[19].mobility.initialZ = 0m
+
+WSN.node[20].mobility.initialX = 210.0000m
+WSN.node[20].mobility.initialY = 182.6795m
+WSN.node[20].mobility.initialZ = 0m
+
+WSN.node[21].mobility.initialX = 214.1421m
+WSN.node[21].mobility.initialY = 185.8579m
+WSN.node[21].mobility.initialZ = 0m
+
+WSN.node[22].mobility.initialX = 217.3205m
+WSN.node[22].mobility.initialY = 190.0000m
+WSN.node[22].mobility.initialZ = 0m
+
+WSN.node[23].mobility.initialX = 219.3185m
+WSN.node[23].mobility.initialY = 194.8236m
+WSN.node[23].mobility.initialZ = 0m
+
+WSN.node[24].mobility.initialX = 220.0000 m
+WSN.node[24].mobility.initialY = 200.0000m
+WSN.node[24].mobility.initialZ = 0m
+
+[Config StarTopology30-rayon20]
+description='Wireless sensor network (30 nodes) with traffic towards one sink (host 0) rayon 20'
+**.numHosts =31
+
+WSN.node[0].mobility.initialX = 200m
+WSN.node[0].mobility.initialY = 200m
+WSN.node[0].mobility.initialZ = 0m
+
+WSN.node[1].mobility.initialX = 220.0000 m
+WSN.node[1].mobility.initialY = 200.0000m
+WSN.node[1].mobility.initialZ = 0m
+
+WSN.node[2].mobility.initialX = 219.5630 m
+WSN.node[2].mobility.initialY = 204.1582 m
+WSN.node[2].mobility.initialZ = 0m
+
+WSN.node[3].mobility.initialX = 218.2709 m
+WSN.node[3].mobility.initialY = 208.1347m
+WSN.node[3].mobility.initialZ = 0 m
+
+WSN.node[4].mobility.initialX = 216.1803 m
+WSN.node[4].mobility.initialY = 211.7557m
+WSN.node[4].mobility.initialZ = 0m
+
+WSN.node[5].mobility.initialX = 213.3826 m
+WSN.node[5].mobility.initialY = 214.8629m
+WSN.node[5].mobility.initialZ = 0m
+
+WSN.node[6].mobility.initialX = 210.0000 m
+WSN.node[6].mobility.initialY = 217.3205m
+WSN.node[6].mobility.initialZ = 0m
+
+WSN.node[7].mobility.initialX = 206.1803 m
+
+WSN.node[7].mobility.initialY = 219.0211m
+WSN.node[7].mobility.initialZ = 0m
+
+WSN.node[8].mobility.initialX = 202.0906 m
+WSN.node[8].mobility.initialY = 219.8904m
+WSN.node[8].mobility.initialZ = 0m
+
+WSN.node[9].mobility.initialX = 197.9094 m
+WSN.node[9].mobility.initialY = 219.8904m
+WSN.node[9].mobility.initialZ = 0m
+
+WSN.node[10].mobility.initialX = 193.8197 m
+WSN.node[10].mobility.initialY = 219.0211m
+WSN.node[10].mobility.initialZ = 0m
+
+WSN.node[11].mobility.initialX = 190.0000 m
+WSN.node[11].mobility.initialY = 217.3205m
+WSN.node[11].mobility.initialZ = 0m
+
+WSN.node[12].mobility.initialX = 186.6174 m
+WSN.node[12].mobility.initialY = 214.8629m
+WSN.node[12].mobility.initialZ = 0m
+
+WSN.node[13].mobility.initialX = 183.8197 m
+WSN.node[13].mobility.initialY = 211.7557m
+WSN.node[13].mobility.initialZ = 0m
+
+WSN.node[14].mobility.initialX = 181.7291 m
+WSN.node[14].mobility.initialY = 208.1347m
+WSN.node[14].mobility.initialZ = 0m
+
+WSN.node[15].mobility.initialX = 180.4370 m
+WSN.node[15].mobility.initialY = 204.1582m
+WSN.node[15].mobility.initialZ = 0m
+
+WSN.node[16].mobility.initialX = 180.0000 m
+WSN.node[16].mobility.initialY = 200.0000m
+WSN.node[16].mobility.initialZ = 0m
+
+WSN.node[17].mobility.initialX = 180.4370 m
+WSN.node[17].mobility.initialY = 195.8418m
+WSN.node[17].mobility.initialZ = 0m
+
+WSN.node[18].mobility.initialX = 181.7291 m
+WSN.node[18].mobility.initialY = 191.8653m
+WSN.node[18].mobility.initialZ = 0m
+
+WSN.node[19].mobility.initialX = 183.8197 m
+WSN.node[19].mobility.initialY = 188.2443m
+WSN.node[19].mobility.initialZ = 0m
+
+WSN.node[20].mobility.initialX = 186.6174 m
+WSN.node[20].mobility.initialY = 185.1371m
+WSN.node[20].mobility.initialZ = 0m
+
+WSN.node[21].mobility.initialX = 190.0000 m
+WSN.node[21].mobility.initialY = 182.6795m
+WSN.node[21].mobility.initialZ = 0m
+
+WSN.node[22].mobility.initialX = 193.8197 m
+
+WSN.node[22].mobility.initialY = 180.9789m
+WSN.node[22].mobility.initialZ = 0m
+
+WSN.node[23].mobility.initialX = 197.9094 m
+WSN.node[23].mobility.initialY = 180.1096m
+WSN.node[23].mobility.initialZ = 0m
+
+WSN.node[24].mobility.initialX = 202.0906 m
+WSN.node[24].mobility.initialY = 180.1096m
+WSN.node[24].mobility.initialZ = 0m
+
+WSN.node[25].mobility.initialX = 206.1803 m
+WSN.node[25].mobility.initialY = 180.9789m
+WSN.node[25].mobility.initialZ = 0m
+
+WSN.node[26].mobility.initialX = 210.0000 m
+WSN.node[26].mobility.initialY = 182.6795m
+WSN.node[26].mobility.initialZ = 0m
+
+WSN.node[27].mobility.initialX = 213.3826m
+WSN.node[27].mobility.initialY = 185.1371m
+WSN.node[27].mobility.initialZ = 0m
+
+WSN.node[28].mobility.initialX = 216.1803 m
+WSN.node[28].mobility.initialY = 188.2443m
+WSN.node[28].mobility.initialZ = 0m
+
+WSN.node[29].mobility.initialX = 218.2709 m
+WSN.node[29].mobility.initialY = 191.8653m
+WSN.node[29].mobility.initialZ = 0m
+
+WSN.node[30].mobility.initialX = 219.5630 m
+WSN.node[30].mobility.initialY = 195.8418m
+WSN.node[30].mobility.initialZ = 0m
