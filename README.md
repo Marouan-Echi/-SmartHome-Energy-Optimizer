@@ -55,8 +55,6 @@ Grâce à une gestion intelligente et automatique de l’énergie, le système a
 
 ---
 
-## 📸 Aperçu
-
 
 
 ## 🧩 Architecture du Système
